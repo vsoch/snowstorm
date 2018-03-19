@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Snowstorm!</title>
+    <link href="css/style.css">
+</head>
+<body>
+<div class="container">
+  <div class="surprise"><a href="img/surprise.mp4"><img src="img/imabox.png"/></a></div>
+    <div class="row clearfix">
+        <div id="home_div">
+            <div id="overlay"></div>
+            <canvas id="particle_canvas" width="2000" height="2000"></canvas>
+        </div>
+        <!--<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="site.js"></script>
+<script>
+    var particleArray = [
+        {
+            "type": "particle_image",
+            "image": {"src":"img/surprise.png","width":2000,"height":2000,},
+            "particleVar": {"particleSizeW" : 1, "particleSizeH" : 1, "particleGap"	: 0,
+                "image":function(){var theImg = "img/circle.png";
+                    var image = document.createElement( "img" ); image.src = theImg;
+                    return image;}},
+            "text":[
+                {"text": "",
+                    "url": "nope.html"}
+            ]
+        },
+    ];
+    jQuery(document).ready(function(){
+
+        var extras = new Object;
+        extras.mobile = 1;
+        extras.rotate = 1;
+        extras.interval = 20000;
+        extras.particleCount = particleArray.length;
+
+        if(top.location.hash.length <= 1)
+        {
+            var homecontroller = new com.mullen.HomeController();
+            homecontroller.init(particleArray, extras);
+
+            var url = jQuery.address.value();
+
+            $.address.change(function(e)
+            {
+                if(e.value != url && homecontroller.destroy)
+                {
+                    homecontroller.destroy();
+                    $('#home_div').remove();
+                }
+            });
+        }
+        else
+        {
+            $('#home_div').remove();
+        }
+
+
+
+    });
+</script>
+</body>
+</html>
